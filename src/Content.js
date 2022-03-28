@@ -1,7 +1,7 @@
 import React from "react";
 
-const Content = ({ users, posts }) => {
-  let containsData = users ? users : posts;
+const Content = ({ users, posts, comments }) => {
+  let containsData = users ? users : posts ? posts : comments;
   return (
     <main className="main">
       <ul>
