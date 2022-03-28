@@ -28,3 +28,12 @@ button {
   min-height: 80vh;
   /* padding: 20px; */
 }
+
+.fetchErr {
+  color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20%;
+}

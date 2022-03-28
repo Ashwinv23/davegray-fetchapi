@@ -1,9 +1,9 @@
 import React from "react";
 
-const Header = () => {
+const Header = ({ fetchUsers }) => {
   return (
     <header className="header">
-      <button>Users</button>
+      <button onClick={fetchUsers}>Users</button>
       <button>Posts</button>
       <button>Comments</button>
     </header>
