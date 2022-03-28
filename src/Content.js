@@ -1,10 +1,10 @@
 import React from "react";
 
-const Content = ({ resp }) => {
+const Content = ({ users }) => {
   return (
     <main className="main">
       <ul>
-        {resp.map((item, i) => (
+        {users.map((item, i) => (
           <li key={i}>
             {console.log(item)}
             {JSON.stringify(item)}
