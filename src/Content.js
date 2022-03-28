@@ -1,14 +1,12 @@
 import React from "react";
 
-const Content = ({ users }) => {
+const Content = ({ users, posts }) => {
+  let containsData = users ? users : posts;
   return (
     <main className="main">
       <ul>
-        {users.map((item, i) => (
-          <li key={i}>
-            {console.log(item)}
-            {JSON.stringify(item)}
-          </li>
+        {containsData.map((item, i) => (
+          <li key={i}>{JSON.stringify(item)}</li>
         ))}
       </ul>
     </main>
