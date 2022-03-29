@@ -7,6 +7,12 @@ function App() {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
+  const [bgColorUsers, setBgColorUsers] = useState("");
+  const [colorUsers, setColorUsers] = useState("");
+  const [bgColorPosts, setBgColorPosts] = useState("");
+  const [colorPosts, setColorPosts] = useState("");
+  const [bgColorComments, setBgColorComments] = useState("");
+  const [colorComments, setColorComments] = useState("");
 
   const fetchData = async (resource) => {
     try {
@@ -21,16 +27,34 @@ function App() {
         setPosts(null);
         setUsers(null);
         setIsFetchErr(null);
+        setBgColorComments("#000");
+        setColorComments("#fff");
+        setBgColorPosts("");
+        setColorPosts("");
+        setBgColorUsers("");
+        setColorUsers("");
       } else if (resource === "posts") {
         setPosts(result);
         setUsers(null);
         setComments(null);
         setIsFetchErr(null);
+        setBgColorPosts("#000");
+        setColorPosts("#fff");
+        setBgColorUsers("");
+        setColorUsers("");
+        setBgColorComments("");
+        setColorComments("");
       } else if (resource === "users") {
         setUsers(result);
         setPosts(null);
         setComments(null);
         setIsFetchErr(null);
+        setBgColorUsers("#000");
+        setColorUsers("#fff");
+        setBgColorComments("");
+        setColorComments("");
+        setBgColorPosts("");
+        setColorPosts("");
       }
     } catch (err) {
       setIsFetchErr(err.message);
@@ -39,7 +63,15 @@ function App() {
 
   return (
     <div className="App">
-      <Header fetchData={fetchData} />
+      <Header
+        fetchData={fetchData}
+        colorUsers={colorUsers}
+        bgColorUsers={bgColorUsers}
+        colorPosts={colorPosts}
+        bgColorPosts={bgColorPosts}
+        colorComments={colorComments}
+        bgColorComments={bgColorComments}
+      />
       {isFetchErr && <h3 className="fetchErr">Error: {isFetchErr}</h3>}
       {!isFetchErr && (
         <Content users={users} posts={posts} comments={comments} />

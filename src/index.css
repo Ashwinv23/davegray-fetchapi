@@ -20,13 +20,12 @@ code {
 button {
   width: 33.33%;
   height: 40px;
+  cursor: pointer;
 }
 
 .main {
-  /* border: 1px solid red; */
   margin: 20px;
   min-height: 80vh;
-  /* padding: 20px; */
 }
 
 .fetchErr {
