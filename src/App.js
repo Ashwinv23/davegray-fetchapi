@@ -8,49 +8,30 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
 
-  const fetchComments = async () => {
+  const fetchData = async (resource) => {
     try {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/comments"
+        "https://jsonplaceholder.typicode.com/" + resource
       );
-      if (!response.ok) throw Error("Fetching Comments Failed! :(");
+      if (!response.ok)
+        throw Error(`Fetching ${resource.toUpperCase()} Failed! :(`);
       const result = await response.json();
-      setComments(result);
-      setPosts(null);
-      setUsers(null);
-      setIsFetchErr(null);
-    } catch (err) {
-      setIsFetchErr(err.message);
-    }
-  };
-
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      if (!response.ok) throw Error("Fetching Posts Failed! :(");
-      const result = await response.json();
-      setPosts(result);
-      setUsers(null);
-      setComments(null);
-      setIsFetchErr(null);
-    } catch (err) {
-      setIsFetchErr(err.message);
-    }
-  };
-
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      if (!response.ok) throw Error("Fetching Users Failed! :(");
-      const result = await response.json();
-      setUsers(result);
-      setPosts(null);
-      setComments(null);
-      setIsFetchErr(null);
+      if (resource === "comments") {
+        setComments(result);
+        setPosts(null);
+        setUsers(null);
+        setIsFetchErr(null);
+      } else if (resource === "posts") {
+        setPosts(result);
+        setUsers(null);
+        setComments(null);
+        setIsFetchErr(null);
+      } else if (resource === "users") {
+        setUsers(result);
+        setPosts(null);
+        setComments(null);
+        setIsFetchErr(null);
+      }
     } catch (err) {
       setIsFetchErr(err.message);
     }
@@ -58,11 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header
-        fetchUsers={fetchUsers}
-        fetchPosts={fetchPosts}
-        fetchComments={fetchComments}
-      />
+      <Header fetchData={fetchData} />
       {isFetchErr && <h3 className="fetchErr">Error: {isFetchErr}</h3>}
       {!isFetchErr && (
         <Content users={users} posts={posts} comments={comments} />

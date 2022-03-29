@@ -1,11 +1,11 @@
 import React from "react";
 
-const Header = ({ fetchUsers, fetchPosts, fetchComments }) => {
+const Header = ({ fetchData }) => {
   return (
     <header className="header">
-      <button onClick={fetchUsers}>Users</button>
-      <button onClick={fetchPosts}>Posts</button>
-      <button onClick={fetchComments}>Comments</button>
+      <button onClick={() => fetchData("users")}>Users</button>
+      <button onClick={() => fetchData("posts")}>Posts</button>
+      <button onClick={() => fetchData("comments")}>Comments</button>
     </header>
   );
 };
