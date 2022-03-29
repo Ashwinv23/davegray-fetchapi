@@ -7,6 +7,8 @@ function App() {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
+
+  // variables for changing BG color of respective buttons
   const [bgColorUsers, setBgColorUsers] = useState("");
   const [colorUsers, setColorUsers] = useState("");
   const [bgColorPosts, setBgColorPosts] = useState("");
@@ -15,6 +17,29 @@ function App() {
   const [colorComments, setColorComments] = useState("");
 
   const fetchData = async (resource) => {
+    // Based on which button is clicked, immediately change the BG color without waiting till the API response
+    if (resource === "comments") {
+      setBgColorComments("#000");
+      setColorComments("#fff");
+      setBgColorPosts("");
+      setColorPosts("");
+      setBgColorUsers("");
+      setColorUsers("");
+    } else if (resource === "posts") {
+      setBgColorPosts("#000");
+      setColorPosts("#fff");
+      setBgColorUsers("");
+      setColorUsers("");
+      setBgColorComments("");
+      setColorComments("");
+    } else if (resource === "users") {
+      setBgColorUsers("#000");
+      setColorUsers("#fff");
+      setBgColorComments("");
+      setColorComments("");
+      setBgColorPosts("");
+      setColorPosts("");
+    }
     try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/" + resource
@@ -26,38 +51,19 @@ function App() {
         setComments(result);
         setPosts(null);
         setUsers(null);
-        setIsFetchErr(null);
-        setBgColorComments("#000");
-        setColorComments("#fff");
-        setBgColorPosts("");
-        setColorPosts("");
-        setBgColorUsers("");
-        setColorUsers("");
       } else if (resource === "posts") {
         setPosts(result);
         setUsers(null);
         setComments(null);
-        setIsFetchErr(null);
-        setBgColorPosts("#000");
-        setColorPosts("#fff");
-        setBgColorUsers("");
-        setColorUsers("");
-        setBgColorComments("");
-        setColorComments("");
       } else if (resource === "users") {
         setUsers(result);
         setPosts(null);
         setComments(null);
-        setIsFetchErr(null);
-        setBgColorUsers("#000");
-        setColorUsers("#fff");
-        setBgColorComments("");
-        setColorComments("");
-        setBgColorPosts("");
-        setColorPosts("");
       }
     } catch (err) {
       setIsFetchErr(err.message);
+    } finally {
+      setIsFetchErr(null);
     }
   };
 
