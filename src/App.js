@@ -3,6 +3,7 @@ import Header from "./Header";
 import Content from "./Content";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const [isFetchErr, setIsFetchErr] = useState(null);
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -17,6 +18,7 @@ function App() {
   const [colorComments, setColorComments] = useState("");
 
   const fetchData = async (resource) => {
+    setIsLoading(true);
     // Based on which button is clicked, immediately change the BG color without waiting till the API response
     if (resource === "comments") {
       setBgColorComments("#000");
@@ -64,6 +66,7 @@ function App() {
       setIsFetchErr(err.message);
     } finally {
       setIsFetchErr(null);
+      setIsLoading(false);
     }
   };
 
@@ -78,6 +81,18 @@ function App() {
         colorComments={colorComments}
         bgColorComments={bgColorComments}
       />
+      {isLoading && (
+        <p
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "1rem",
+            color: "darkgray",
+          }}
+        >
+          Loading...
+        </p>
+      )}
       {isFetchErr && <h3 className="fetchErr">Error: {isFetchErr}</h3>}
       {!isFetchErr && (
         <Content users={users} posts={posts} comments={comments} />
