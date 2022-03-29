@@ -48,6 +48,7 @@ function App() {
       );
       if (!response.ok)
         throw Error(`Fetching ${resource.toUpperCase()} Failed! :(`);
+
       const result = await response.json();
       if (resource === "comments") {
         setComments(result);
@@ -81,7 +82,8 @@ function App() {
         colorComments={colorComments}
         bgColorComments={bgColorComments}
       />
-      {isLoading && (
+
+      {isLoading ? (
         <p
           style={{
             display: "flex",
@@ -92,9 +94,9 @@ function App() {
         >
           Loading...
         </p>
-      )}
-      {isFetchErr && <h3 className="fetchErr">Error: {isFetchErr}</h3>}
-      {!isFetchErr && (
+      ) : isFetchErr ? (
+        <h3 className="fetchErr">Error: {isFetchErr}</h3>
+      ) : (
         <Content users={users} posts={posts} comments={comments} />
       )}
     </div>
